@@ -42,6 +42,8 @@ The environment included organizational units for IT, HR, and Accounting under t
 
 This approach supports centralized administration and separates departmental resources logically.
 
+![Organizational Units in Active Directory](screenshots/1-Organizational-Units/1OU.jpg)
+
 ## 2. User Account Provisioning
 
 Created and configured employee accounts for the simulated organization.
@@ -58,6 +60,14 @@ Configured user properties, including department information and job titles wher
 
 Account configurations included password-change requirements and account settings appropriate to the lab scenarios.
 
+![Creation of User](screenshots/2-User-Provisioning/02jwilsoncreation.jpg)
+![User Provisoning Properties](screenshots/2-User-Provisioning/04orgposition.jpg)
+
+![User Provison](screenshots/2-User-Provisioning/09sjohnsonacc.png)
+![User Provisoning Properties](screenshots/2-User-Provisioning/08sjohnson.png)
+
+![User Provison](screenshots/2-User-Provisioning/11mbrownacc.png)
+![User Provisoning Properties](screenshots/2-User-Provisioning/10mbrown.png)
 ## 3. Security Group Configuration
 
 Created three Active Directory security groups:
@@ -66,7 +76,12 @@ Created three Active Directory security groups:
 - SG_HR
 - SG_ACCOUNTING
 
+  ![Security Groups list](screenshots/3-Security-Groups/13ALLSG.png)
+
 Assigned employee accounts to their respective departmental groups.
+![SG_IT](screenshots/3-Security-Groups/14-SG_ITProp.png)
+![SG_HR](screenshots/3-Security-Groups/16-SG_HRProp.png)
+![SG_Accounting](screenshots/3-Security-Groups/15-SG_AccountingProp.png)
 
 Using security groups rather than assigning file permissions directly to individual accounts simplifies access administration and supports role-based access control.
 
@@ -76,6 +91,9 @@ Created departmental folders under:
 
 `C:\CompanyShares`
 
+![Department Folders](screenshots/4-NTFS-Permissions/01-Department-Folders.png)
+
+
 Configured the following permissions:
 
 | Folder | Department Group | NTFS Access |
@@ -84,13 +102,18 @@ Configured the following permissions:
 | HR | SG_HR | Modify |
 | Accounting | SG_ACCOUNTING | Modify |
 
+![Permissions](screenshots/4-NTFS-Permissions/02-IT-NTFS-Modify-Permissions.png)
+
 Retained administrative and SYSTEM permissions for server management.
 
 Configured departmental access using the principle of least privilege, granting users the permissions necessary to work with their department's files.
+![Permissions](screenshots/4-NTFS-Permissions/03-HR-NTFS-Permissions.png)
 
 ## 5. SMB Network File Sharing
 
 Configured departmental network shares using Windows Server file-sharing functionality.
+
+![Shares in Active Directory](screenshots/5-SMB-File-Sharing/01-Server-Manager-SMB-Shares.png)
 
 | Department | Network Share |
 |---|---|
@@ -99,6 +122,11 @@ Configured departmental network shares using Windows Server file-sharing functio
 | Accounting | `\\192.168.56.10\Accounting` |
 
 Configured departmental security groups with Change and Read share permissions.
+
+![Permissions for IT](screenshots/5-SMB-File-Sharing/02-IT-Share-Permissions.png)
+![Permissions for HR](screenshots/5-SMB-File-Sharing/03-HR-Share-Permissions.png)
+![Permissions for Accounting](screenshots/5-SMB-File-Sharing/04-Accounting-Share-Permissions.png)
+
 
 These permissions allow authorized employees to work with shared files while restricting access to users outside the appropriate department.
 
@@ -114,6 +142,8 @@ Performed access testing from a domain-joined Windows client using employee doma
 - Accessed the IT network share.
 - Created and edited a test file.
 
+![jwilson](screenshots/6-Access-Control-Testing/05-HR-User-Access-Evidence.png)
+
 **Sarah Johnson — Human Resources**
 
 - Authenticated using her domain account.
@@ -126,6 +156,8 @@ Performed access testing from a domain-joined Windows client using employee doma
 - Accessed the Accounting network share.
 - Created and saved `Accounting_Access_Test.txt`.
 
+  ![mbrown](screenshots/6-Access-Control-Testing/07-Accounting-Share-Accessible.png)
+
 ### Unauthorized Access
 
 Verified that users could not access departmental shares outside their assigned security groups.
@@ -133,7 +165,9 @@ Verified that users could not access departmental shares outside their assigned 
 Examples included:
 
 - James Wilson attempting to access the HR share.
+  ![HR](screenshots/6-Access-Control-Testing/09-Accounting-Share-Access-Denied.png)
 - Michael Brown attempting to access the IT share.
+  ![IT](screenshots/6-Access-Control-Testing/08-IT-Share-Access-Denied.png)
 
 Windows returned permission-denied messages, demonstrating that departmental access restrictions were enforced.
 
@@ -144,6 +178,8 @@ Used Windows administrative tools and command-line utilities to validate the env
 **Network connectivity**
 
 Verified communication with the domain controller at `192.168.56.10` using the `ping` command.
+
+![Ping](screenshots/6-Access-Control-Testing/01-Network-Connectivity-Ping.png)
 
 **Domain authentication**
 
